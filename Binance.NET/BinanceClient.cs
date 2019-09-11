@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+
+using Binance.Helpers;
 
 namespace Binance
 {
@@ -14,7 +15,7 @@ namespace Binance
         private HttpClientHandler httpClientHandler;
         private HttpClient httpClient;
 
-        public String UserAgent { get; set; } = "B-Trader";
+        public String UserAgent { get; set; } = "Binance.NET";
 
         public Uri BaseAddress { get; } = new Uri("https://api.binance.com");
 
@@ -64,6 +65,16 @@ namespace Binance
             using (await GetAsync(uri, null, HttpCompletionOption.ResponseContentRead))
             stopWatch.Stop();
             return stopWatch.ElapsedMilliseconds;
+        }
+
+        public async Task<ExchangeInfo> GetExchangeInfoAsync()
+        {
+            String uri = "api/v1/exchangeInfo";
+            using (var response = await GetAsync(uri, null))
+            {
+                String body = await response.Content.ReadAsStringAsync();
+                return JsonHelper.ParseFromJson<ExchangeInfo>(body);
+            }
         }
 
         public async Task<HttpResponseMessage> SendAsync(HttpMethod method, Uri uri, Dictionary<String, String> headers, HttpCompletionOption httpCompletionOption)

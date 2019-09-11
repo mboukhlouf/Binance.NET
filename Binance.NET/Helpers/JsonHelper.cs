@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Binance.Helpers
 {
-    public class JsonHelper
+    class JsonHelper
     {
         public static T ParseFromJson<T>(String jsonString)
         {
