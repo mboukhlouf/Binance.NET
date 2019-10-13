@@ -1,4 +1,6 @@
-﻿using Binance.Helpers;
+﻿using System.Linq;
+
+using Binance.Helpers;
 
 namespace Binance
 {
@@ -27,6 +29,10 @@ namespace Binance
         public bool IsMarginTradingAllowed { get; set; }
 
         public SymbolFilter[] Filters { get; set; }
+
+        public SymbolFilter LotSizeFilter { get => Filters.Where(filter => filter.FilterType == SymbolFilterType.LOT_SIZE)
+                .FirstOrDefault();
+        }
 
         public override string ToString()
         {

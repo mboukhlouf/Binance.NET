@@ -126,7 +126,7 @@ namespace Binance
 
         public async Task TestNewOrderAsync(Order order)
         {
-            String uri = "/api/v3/order/test";
+            String uri = "api/v3/order/test";
             if (order.Timestamp == null)
 
                 order.Timestamp = DateNowUnix();
@@ -150,7 +150,7 @@ namespace Binance
 
         public async Task<OrderResponse> NewOrderAsync(Order order)
         {
-            String uri = "/api/v3/order";
+            String uri = "api/v3/order";
             if (order.Timestamp == null)
 
                 order.Timestamp = DateNowUnix();
@@ -170,6 +170,31 @@ namespace Binance
                 String body = await response.Content.ReadAsStringAsync();
                 CheckForBinanceException(statusCode, body);
                 var orderResponse = JsonHelper.ParseFromJson<OrderResponse>(body);
+                return orderResponse;
+            }
+        }
+
+        public async Task<OcoOrderResponse> NewOcoOrderAsync(OcoOrder order)
+        {
+            String uri = "api/v3/order/oco";
+            if (order.Timestamp == null)
+                order.Timestamp = DateNowUnix();
+
+            if (order.RecvWindow == null)
+                order.RecvWindow = 60000;
+
+            Dictionary<String, String> headers = new Dictionary<string, string>();
+            headers.Add("X-MBX-APIKEY", ApiKey);
+
+            String postData = FormDataSerializer.Serialize(order);
+            String signature = Sign(postData);
+            postData += $"&signature={signature}";
+            using (var response = await PostAsync(uri, postData, headers))
+            {
+                int statusCode = (int)response.StatusCode;
+                String body = await response.Content.ReadAsStringAsync();
+                CheckForBinanceException(statusCode, body);
+                var orderResponse = JsonHelper.ParseFromJson<OcoOrderResponse>(body);
                 return orderResponse;
             }
         }

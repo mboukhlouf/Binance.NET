@@ -11,9 +11,9 @@ namespace Binance
         public string MultiplierUp { get; set; }
         public string MultiplierDown { get; set; }
         public int? AvgPriceMins { get; set; }
-        public string MinQty { get; set; }
-        public string MaxQty { get; set; }
-        public string StepSize { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? MaxQty { get; set; }
+        public decimal? StepSize { get; set; }
         public string MinNotional { get; set; }
         public bool? ApplyToMarket { get; set; }
         public int? Limit { get; set; }

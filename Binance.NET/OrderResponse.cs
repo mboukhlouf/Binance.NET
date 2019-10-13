@@ -10,9 +10,9 @@ namespace Binance
     {
         public class Fill
         {
-            public string Price { get; set; }
-            public string Qty { get; set; }
-            public string Commission { get; set; }
+            public decimal Price { get; set; }
+            public decimal Qty { get; set; }
+            public decimal Commission { get; set; }
             public string CommissionAsset { get; set; }
         }
 
@@ -21,10 +21,10 @@ namespace Binance
         public int OrderListId { get; set; }
         public string ClientOrderId { get; set; }
         public long TransactTime { get; set; }
-        public string Price { get; set; }
-        public string OrigQty { get; set; }
-        public string ExecutedQty { get; set; }
-        public string CummulativeQuoteQty { get; set; }
+        public decimal Price { get; set; }
+        public decimal OrigQty { get; set; }
+        public decimal ExecutedQty { get; set; }
+        public decimal CummulativeQuoteQty { get; set; }
         public OrderStatus Status { get; set; }
         public TimeInForce TimeInForce { get; set; }
         public OrderType Type { get; set; }

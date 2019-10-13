@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace Binance
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum OCOOrderStatus
+    public enum OcoOrderStatus
     {
         EXECUTING,
         ALL_DONE,
